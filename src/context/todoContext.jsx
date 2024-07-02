@@ -1,14 +1,12 @@
-import React, { createContext, useContext, useState, useRef } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 const TodoStateContext = createContext()
 const TodoDispatchContext = createContext()
 
-const TodoProvider = () => {
-  const id = useRef(1)
+const TodoProvider = ({children}) => {
   const [todos, setTodos] = useState([])
   const onInsert = (value)=>{
-    const todo = {id:id.current, text:value, checked:false}
-    id.current = id.current + 1;
+    const todo = {id:Date.now(), text:value, checked:false}
     setTodos(todos.concat(todo))
   }
   const onToggle = (idno)=>{
@@ -25,10 +23,28 @@ const TodoProvider = () => {
   }
 
   return (
-    <div>
-      
-    </div>
+    <TodoStateContext.Provider value={todos}>
+      <TodoDispatchContext.Provider value={{onInsert, onToggle, onRemove, onFinishRemove, allRemove}}>
+        {children}
+      </TodoDispatchContext.Provider>
+    </TodoStateContext.Provider>
   );
 };
 
-export default todoContext;
+const useTodoState = () => {
+  const context = useContext(TodoStateContext);
+  if (!context) {
+      throw new Error('오류');
+  }
+  return context;
+};
+
+const useTodoDispatch = () => {
+  const context = useContext(TodoDispatchContext);
+  if (!context) {
+      throw new Error('오류');
+  }
+  return context;
+};
+
+export {TodoProvider, useTodoState, useTodoDispatch };

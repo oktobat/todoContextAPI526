@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
 import { MdCheckBoxOutlineBlank, MdRemoveCircleOutline, MdCheckBox } from 'react-icons/md'
+import {useTodoDispatch } from '@/context/todoContext'
 
 const TodoListItemBlock = styled.li`
   display:flex; padding:1rem; 
@@ -18,13 +19,14 @@ const TodoListItemBlock = styled.li`
   }
 `
 
-const TodoListItem = ({todo, onToggle, onRemove}) => {
+const TodoListItem = ({todo}) => {
+  const {onToggle, onRemove} = useTodoDispatch()
   const {id, checked, text } = todo
   return (
     <TodoListItemBlock>
       <div className="list" onClick={()=>onToggle(id)}>
         { checked ? <MdCheckBox className="red" /> : <MdCheckBoxOutlineBlank /> }
-        <div style={{paddingLeft:'10px'}} className={checked ? "finish" : ""}>{id}. {text}</div>
+        <div style={{paddingLeft:'10px'}} className={checked ? "finish" : ""}>{text}</div>
       </div>
       <div className="remove" onClick={()=>onRemove(id)}>
         <MdRemoveCircleOutline />

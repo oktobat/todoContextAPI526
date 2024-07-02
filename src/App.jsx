@@ -4,14 +4,16 @@ import TodoHeader from '@/TodoHeader'
 import TodoInsert from '@/TodoInsert'
 import TodoList from '@/TodoList'
 import TodoFooter from '@/TodoFooter'
+import {useTodoState, useTodoDispatch} from '@/context/todoContext'
 
 const App = () => {
+  const todos = useTodoState()
   return (
     <TodoTemplate>
       <TodoHeader todos={todos} />
-      <TodoInsert onInsert={onInsert} />
-      <TodoList todos={todos} onToggle={onToggle} onRemove={onRemove} />
-      <TodoFooter onFinishRemove={onFinishRemove} allRemove={allRemove} />
+      <TodoInsert />
+      <TodoList todos={todos} />
+      <TodoFooter />
     </TodoTemplate>
   );
 };

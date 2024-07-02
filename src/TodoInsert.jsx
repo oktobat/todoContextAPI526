@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components'
 import { FaPlus } from "react-icons/fa6";
+import {useTodoDispatch} from '@/context/todoContext'
 
 
 const TodoInsertBlock = styled.div`
@@ -17,8 +18,8 @@ const TodoInsertBlock = styled.div`
   }
 `
 
-const TodoInsert = ({onInsert}) => {
-  // 컴포넌트 내부에서 변경되는 데이터 관리 : state 변수
+const TodoInsert = () => {
+  const { onInsert } = useTodoDispatch();
   const [text, setText] = useState("")
   const onChange = (e)=>{
     console.log(e)
