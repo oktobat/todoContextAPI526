@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
 import TodoListItem from '@/TodoListItem'
+import {useTodoState} from '@/context/todoContext'
 
 const TodoListBlock = styled.ul`
   min-height:320px;
@@ -8,11 +9,11 @@ const TodoListBlock = styled.ul`
   overflow-y:auto;
 `
 
-const TodoList = ({todos}) => {
+const TodoList = () => {
+  const todos = useTodoState()
   return (
     <TodoListBlock>
-      {
-        todos.map((todo, index)=><TodoListItem key={index} todo={todo} />)
+      { todos.map((todo, index)=><TodoListItem key={index} todo={todo} />)
       }
     </TodoListBlock>
   );

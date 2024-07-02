@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components'
+import {useTodoState} from '@/context/todoContext'
 
 const TodoHeaderBlock = styled.div`
   h1 {
@@ -13,7 +14,8 @@ const TodoHeaderBlock = styled.div`
   }
 `
 
-const TodoHeader = ({todos}) => {
+const TodoHeader = () => {
+  const todos = useTodoState()
   return (
     <TodoHeaderBlock>
       <h1>일정관리앱 ({ todos.filter(item=>item.checked).length }건 처리/총 {todos.length}건)</h1>

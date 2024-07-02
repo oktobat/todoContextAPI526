@@ -4,7 +4,12 @@ const TodoStateContext = createContext()
 const TodoDispatchContext = createContext()
 
 const TodoProvider = ({children}) => {
-  const [todos, setTodos] = useState([])
+  const [todos, setTodos] = useState([
+    {id:1, checked:false, text:"일정1" }, 
+    {id:2, checked:false, text:"일정2" },
+    {id:3, checked:true, text:"일정3" }, 
+    {id:4, checked:false, text:"일정4" }
+  ])
   const onInsert = (value)=>{
     const todo = {id:Date.now(), text:value, checked:false}
     setTodos(todos.concat(todo))
